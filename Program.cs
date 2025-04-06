@@ -3,18 +3,21 @@
 
  double ValorfaturaT;
  double Pagamento;
- 
  double TaxaM;
+
  double PagamentoMin;
  double ValorN;
  double juros;
  double IOFM;
  double IOFD;
- double ValorCo;
+ double ValorPP;
+ double ValorPPF;
 
 Console.WriteLine("Super maquina de calculo de ceditos rotativos!");
 
 Console.WriteLine("Por favor, insira os seguintes valores:");
+
+Console.WriteLine();
 
 
         Console.WriteLine("Valor total da fatura (R$)...:");
@@ -29,29 +32,27 @@ Console.WriteLine("Por favor, insira os seguintes valores:");
 
 Console.WriteLine();
 
-PagamentoMin =   ValorfaturaT/ 100 * Pagamento ;
+PagamentoMin = Pagamento /100 * ValorfaturaT;
+Console.WriteLine($"Pagamento mínimo..................: R${PagamentoMin}");
 
-ValorN = Pagamento -PagamentoMin;
+ValorN = ValorfaturaT - PagamentoMin; 
+Console.WriteLine($"Valor não pago....................: R${ValorN}");
 
-juros = PagamentoMin - ValorN;
+ValorPP =( 1 +(TaxaM /100)) * ValorN;
 
-IOFM = PagamentoMin *  0.0038;
+        juros = ValorPP - ValorN; 
+        Console.WriteLine($"Juros.............................: R${Math.Round(juros, 3)}");
 
-IOFD = PagamentoMin * 0.00246;
+        IOFD = ValorN * 0.0038;
+        Console.WriteLine($"IOF mensal........................: R${IOFD}");
 
-ValorCo =  TaxaM+1* PagamentoMin;
+        IOFM = 0.00246 * ValorN;
+        Console.WriteLine($"IOF Diario........................: R${Math.Round(IOFM, 2)}");
 
-Console.WriteLine($"Pagamento mínimo..................:{PagamentoMin}");
+        Console.WriteLine();
 
-Console.WriteLine("Caso seja pago o valor mínimo:");
+Console.WriteLine($"Valor a pagar na próxima fatura...: R${Math.Round(ValorPP, 3)}");
 
-Console.WriteLine($"Valor não pago....................:{ValorN}");
 
-Console.WriteLine($"Juros.............................:{juros}");
-
-Console.WriteLine($"IOF mensal........................:{IOFM}");
-
-Console.WriteLine($"IOF diário........................:{IOFD}");
-
-Console.WriteLine($"Valor a pagar na próxima fatura...:{ValorPa}");
-
+ValorPPF = juros + IOFM + IOFD;
+Console.WriteLine($"Custo do crédito rotativo.........: R${Math.Round(ValorPPF, 2)}");
